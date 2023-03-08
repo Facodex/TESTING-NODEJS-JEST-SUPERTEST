@@ -29,9 +29,18 @@ describe('Probando si por POST se guardan datos', () => {
     });
 
     //deberia responder con un content-type of application/json
-
+    test('should have a content-type/json in header', async() => {
+        const response = await request(app).post('/tasks').send();
+        expect(response.headers['content-type']).toEqual(expect.stringContaining('json'));
+    });
 
     //deberia responder con un objeto json que contenga una nueva tarea con un ID
-
+    test('should response contain a task with property id', async() => {
+        const response = await request(app).post('/tasks').send({
+            title: 'test tasks',
+            description: 'test description'
+        });
+        expect(response.body.id).toBeDefined();
+    });
     
 });
