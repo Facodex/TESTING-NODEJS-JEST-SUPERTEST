@@ -19,13 +19,20 @@ app.get('/tasks', (req, res) => {
 });
 
 // nuestras url por POST
-app.post('/tasks', (req, res) => {    
-    const {title, description} = req.body; //esto recibimos de la peticion
+app.post('/tasks', (req, res) => {   
+    
+    //esto recibimos de la peticion
+    const {title, description} = req.body; 
+
+    // comprobando que se haya recibido un titulo y una descripcion
+    if(!title || !description) return res.sendStatus(400);
+    
     res.json({  //esto lo enviamos de nuevo
         title,
         description,
         id: v4()
     });
+
 });
 
 export default app;
